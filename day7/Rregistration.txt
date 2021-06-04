@@ -1,0 +1,59 @@
+package com.example.day7;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+public class MainActivity extends AppCompatActivity {
+EditText name,email,contact,pass;
+Button button;
+
+public static final String main_key="myPref";
+    public static final String name_key="namepref";
+    public static final String email_key="emailpref";
+    public static final String pass_key="passspref";
+    public static final String contact_key="contactpref";
+
+
+
+   @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+            name = findViewById(R.id.name);
+        name = findViewById(R.id.name);
+        email = findViewById(R.id.email);
+        pass = findViewById(R.id.password);
+        contact = findViewById(R.id.contact);
+        button = findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                SharedPreferences preferences = getSharedPreferences(main_key, MODE_PRIVATE);
+                String username = name.getText().toString();
+                String userpassword = pass.getText().toString();
+                String userEmail = email.getText().toString();
+                String  userContact = contact.getText().toString();
+                SharedPreferences.Editor editor = preferences.edit();
+                editor.putString(name_key,username);
+                editor.putString(email_key,userEmail);
+                editor.putString(pass_key,userpassword);
+                editor.putString(contact_key,userContact);
+                editor.commit();
+
+               Intent intent = new Intent(MainActivity.this,loginActivity.class);
+               startActivity(intent);
+            }
+        });
+
+
+
+
+    }
+}
